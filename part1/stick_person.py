@@ -26,7 +26,7 @@ from plotter_runtime import start, finish, pen_up, pen_down, move_rel
 
 start()
 try:
-    # travel from the page centre up to the neck (the anchor)
+    # travel from the centre up to the neck (the anchor)
     pen_up()
     move_rel(0.0, 40.0)
 

@@ -39,10 +39,13 @@ To look at a PNG, open it in your editor (VS Code shows images), or copy it to y
 ### Reading a preview
 - **Blue** lines are drawn with the pen **down**: that's the drawing.
 - **Pink** lines are pen-**up** travel. The plotter moves along them without drawing. The two long pink lines to the
-  top-left corner are the trip from the plotter's home corner to the page centre at the start, and back home at the
-  end.
-- **Units are millimetres.** **x points right, y points up.** Drawing starts at the **centre** of the page. Stay within
-  about 200 mm left/right and 140 mm up/down of the centre.
+  top-left corner are the trip from the plotter's home corner to the centre of the paper at the start, and back home
+  at the end.
+- The **grey dashed box** is the **safe area**: the pen must stay at least 1 inch from the edges of the 17 × 11 inch
+  paper. Anything that goes outside it is drawn in **red**, with a WARNING. The real plotter refuses to draw such a
+  drawing at all.
+- **Units are millimetres.** **x points right, y points up.** Drawing starts at the **centre** of the paper. The safe
+  area is **190.5 mm left/right and 114.3 mm up/down** of the centre.
 
 ---
 
@@ -51,16 +54,17 @@ To look at a PNG, open it in your editor (VS Code shows images), or copy it to y
 ### The five commands
 | Command | Meaning |
 |---|---|
-| `start()` | Connect to the plotter. The pen is **up**, at the **centre of the page**. |
+| `start()` | Start a drawing. The pen is **up**, at the **centre of the paper**. |
 | `pen_up()` | Lift the pen. Moves after this do **not** draw. |
 | `pen_down()` | Lower the pen. Moves after this **do** draw. |
 | `move_rel(dx, dy)` | Move `dx` mm right and `dy` mm up **from where the pen is now**. Negative numbers go left or down. |
-| `finish()` | Lift the pen, go home, and disconnect. |
+| `finish()` | Check that the whole drawing stays in the safe area, draw it, then lift the pen and go home. |
 
 A **dot** is `pen_down()` followed straight away by `pen_up()`.
 
-Every program has the same outline. The `try` / `finally` makes sure `finish()` runs even if the drawing code
-crashes, so a real plotter is never left with its pen down:
+Every program has the same outline. The commands between `start()` and `finish()` are only **recorded**;
+`finish()` checks the whole drawing and then draws it. The `try` / `finally` makes sure `finish()` runs even if the
+drawing code crashes (then the real plotter draws nothing, and a preview shows what was recorded):
 
 ```python
 import sys
@@ -205,7 +209,7 @@ and run `piq2png part2/scene.piq` often.
 1. **Hat and face:** add the same hat and face as in 1.4 (same sizes and positions). Count the lines you added, and
    compare with your count from 1.4.
 2. **A crowd:** turn the person into a procedure, `define person() { … }`, and use a `for` loop to draw **three
-   people side by side**, 90 mm apart and centred on the page.
+   people side by side**, 90 mm apart and centred on the paper.
    - Hint: a procedure is only easy to reuse if it **ends where it started**. `stick_person.piq` starts by moving up
      to the neck and ends at the neck. What must you add or remove so that `person()` ends where it began?
 3. **Your own addition:** add something else to the scene: a sun, the ground, trees, a house, a dog … It must include:
@@ -214,7 +218,7 @@ and run `piq2png part2/scene.piq` often.
    - at least one `circle` and one `rectangle`;
    - at least one arithmetic expression (such as `h / 2 + 12`).
 
-   Keep everything on the page.
+   Keep everything inside the safe area (no red in the preview).
 
 - **Save for Gradescope:** `part2/scene.piq` and `part2/scene.png`.
 

@@ -5,7 +5,7 @@
 #     py2png part1/shapes.py            writes part1/shapes.png
 #
 # Units are millimetres, x points RIGHT and y points UP. Every move_rel is
-# relative to where the pen is now. The pen starts at the centre of the page.
+# relative to where the pen is now. The pen starts at the centre of the paper.
 #
 # Each shape below has an ANCHOR: its bottom-left corner. Every shape starts
 # at its anchor and ends back at its anchor, with the pen up. That way the
@@ -18,7 +18,7 @@ from plotter_runtime import start, finish, pen_up, pen_down, move_rel
 
 start()
 try:
-    # travel from the page centre to the square's anchor
+    # travel from the centre to the square's anchor
     pen_up()
     move_rel(-130.0, -15.0)
 
