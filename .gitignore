@@ -1,0 +1,5 @@
+# pictures and compiled Python made while doing the lab
+*.png
+part2/*.py
+# pages made by a markdown viewer
+*.html

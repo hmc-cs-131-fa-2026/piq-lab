@@ -1,0 +1,25 @@
+move up 40
+
+move up 15
+square 30
+move down 15
+
+line down 50
+move up 50
+
+move down 10
+move left 30
+line right 60
+move left 30
+move up 10
+
+move down 50
+move left 10
+line right 20
+line down 40
+move up 40
+move left 20
+line down 40
+move up 40
+move right 10
+move up 50

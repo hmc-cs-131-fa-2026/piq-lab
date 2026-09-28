@@ -1,0 +1,24 @@
+define flower(r) {
+    circle r
+    dot
+    move down r
+    line down 2 * r
+    move up 3 * r
+}
+
+move left 150
+square 30
+
+move right 60
+rectangle 40 20
+
+move right 60
+circle 15
+
+move right 60
+flower(10)
+
+move right 70
+for i from 1 to 4 {
+    square i * 10
+}
