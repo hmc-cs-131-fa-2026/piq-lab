@@ -122,7 +122,8 @@ Work in a copy, so the original stays unchanged for Part 2:
 ```
 cp part1/stick_person.py part1/dressed.py
 ```
-In `part1/dressed.py`, add these at the end of the drawing (just above `finally:`), using only the five commands:
+In `part1/dressed.py`, fill in the two sections marked `# === TODO (1.4)` at the end of the drawing (just above
+`finally:`), using only the five commands. The same instructions are in the comments there:
 
 1. **A hat:** a **brim**, a 40 mm horizontal line lying on top of the head, centred, plus a **crown**, a 20 mm wide,
    15 mm tall box standing on the middle of the brim.

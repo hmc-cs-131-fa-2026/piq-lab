@@ -65,5 +65,17 @@ try:
     pen_up()
     move_rel(10.0, 90.0)     # back to the neck
 
+    # === TODO (1.4): HAT ===
+    # A BRIM: a 40 mm horizontal line lying on top of the head, centred.
+    #   (The top of the head is 30 mm above the neck.)
+    # A CROWN: a 20 mm wide, 15 mm tall box standing on the middle of the brim.
+    # Start at the neck, and end back at the neck with the pen up.
+
+    # === TODO (1.4): FACE ===
+    # Two EYES: dots 20 mm above the neck, one 7 mm to the left of it and one
+    #   7 mm to the right.
+    # A MOUTH: a 12 mm horizontal line, 8 mm above the neck, centred.
+    # Start at the neck, and end back at the neck with the pen up.
+
 finally:
     finish()
