@@ -16,6 +16,9 @@ You don't need a plotter. Every drawing is saved as a **preview picture (PNG)**.
 **Submitting (Gradescope):** you'll paste your answers and upload pictures and code. Keep notes in `answers.md` as you
 go; its headings match the Gradescope questions. [What to submit](#what-to-submit) lists everything.
 
+**What needs a written answer:** whenever a question says **Answer in `answers.md`**, write your answer there. Parts
+marked **Things to notice** need no written answer: they're there to point your attention at something.
+
 ---
 
 ## Setup (2 minutes)
@@ -26,21 +29,31 @@ git clone https://github.com/hmc-cs-131-fa-2026/piq-lab.git ~/piq-lab
 cd ~/piq-lab
 ```
 
-**Run every command from this `piq-lab` folder.** The tools you'll use are already installed on the server:
+**Run every command from this `piq-lab` folder.** In this lab you'll use three tools, which are already installed on
+the server:
 
-| Command | What it does |
+| Usage | What it does |
 |---|---|
-| `py2png part1/shapes.py` | Runs a plotter **Python** program on a pretend plotter and saves the drawing as `part1/shapes.png` |
-| `piq2png part2/shapes.piq` | Compiles a **piq** program to Python (`part2/shapes.py`), then draws it (`part2/shapes.png`) |
-| `piq2py part2/shapes.piq` | Only compiles: writes `part2/shapes.py` so you can read it |
+| `py2png <file.py> [-o <output.png>]` | Runs a plotter **Python** program on a pretend plotter and saves the drawing as a PNG picture (by default next to the `.py`, with the same name) |
+| `piq2png <file.piq> [-o <output.png>]` | Compiles a **piq** program to Python (a `.py` next to it), then draws it as a PNG |
+| `piq2py <file.piq> [-o <output.py>]` | Only compiles: writes the Python program, so you can read it |
+
+**Do not run these commands yet.** This is just a preview of the three tools you'll use later in the lab. We'll
+introduce them one at a time, as you get to know the Python target language and piq.
 
 To look at a PNG, open it in your editor (VS Code shows images), or copy it to your own computer.
 
 ### Reading a preview
-- **Blue** lines are drawn with the pen **down**: that's the drawing.
-- **Pink** lines are pen-**up** travel. The plotter moves along them without drawing. The two long pink lines to the
-  top-left corner are the trip from the plotter's home corner to the centre of the paper at the start, and back home
-  at the end.
+Here is the preview of the simple-shapes program you'll run in Part 1:
+
+![Preview of the simple-shapes program: blue shapes in a row, pink travel lines, and a grey dashed box](images/shapes_preview.png)
+
+In the preview, **blue** paths are motions with the pen **down**, so these are the marks that would appear on paper.
+**Pink** paths show motion with the pen **up**. The plotter still has to physically travel along these paths, but it
+doesn't draw them.
+
+- The two long **pink** lines to the top-left corner are the trip from the plotter's home corner to the centre of the
+  paper at the start, and back home at the end.
 - The **grey dashed box** is the **safe area**: the pen must stay at least 1 inch from the edges of the 17 × 11 inch
   paper. Anything that goes outside it is drawn in **red**, with a WARNING. The real plotter refuses to draw such a
   drawing at all.
@@ -93,16 +106,20 @@ py2png part1/shapes.py
 and open `part1/shapes.png`. You should see, left to right: a square, a triangle, an X, a plus sign, the letters "HI",
 and a dot.
 
-- **(a)** How many `pen_down()` calls are in the file? How many separate shapes do you see? Why are the two numbers
-  different?
-- **(b)** Why does the X need a `pen_up()` in the middle, but the square doesn't?
+> **Things to notice** (no written answer needed)
+>
+> 1. Skim `part1/shapes.py` and compare how many `pen_down()` calls you see with how many shapes appear in the
+>    preview. You don't need to count carefully. Just notice how the shapes you see relate to the low-level pen
+>    operations that draw them.
+> 2. Think about why drawing the **X** requires lifting the pen between its two diagonal strokes, while drawing the
+>    square doesn't require lifting the pen between its four sides.
 
 ### 1.2 One number, everywhere
 In `part1/shapes.py`, change **only** the square's last stroke, `move_rel(0.0, -30.0)`, to `move_rel(0.0, -40.0)`.
 
 - **Predict first:** what happens to the square? What happens to **every shape after it**?
 - Run `py2png part1/shapes.py` again and check. In one or two sentences, explain why one number changed the whole rest
-  of the drawing.
+  of the drawing. **Answer in `answers.md`** (your prediction, what happened, and why).
 - **Save this picture for Gradescope:** `cp part1/shapes.png part1/shapes_1_2.png`. Then change the line back to
   `-30.0`.
 
@@ -110,7 +127,7 @@ In `part1/shapes.py`, change **only** the square's last stroke, `move_rel(0.0, -
 In the X block, delete the `pen_up()` on the line right after the **first diagonal**.
 
 - **Predict first:** what extra line will appear, and exactly where?
-- Run it and check. Then put the `pen_up()` back.
+- Run it and check. Then put the `pen_up()` back. **Answer in `answers.md`** (your prediction and what happened).
 
 A missing `pen_up()` is the most common plotter bug. On paper, that line can't be erased!
 
@@ -136,7 +153,7 @@ Tips: sketch it first, and label each move with its `(dx, dy)`. Do the hat, run 
 the face, and run it again.
 End each part back at the neck with the pen up. Comments (`# …`) help.
 
-- **Record:** how many lines of code did you add? (Don't count blank lines or comments.)
+- **Record:** how many lines of code did you add? (Don't count blank lines or comments.) **Answer in `answers.md`.**
 - **Save for Gradescope:** `part1/dressed.py` and `part1/dressed.png`.
 
 ---
@@ -171,64 +188,103 @@ Read `part2/shapes.piq`, then run:
 piq2png part2/shapes.piq
 ```
 and open `part2/shapes.png`. Then open the Python file the compiler wrote, `part2/shapes.py`. It uses the same five
-commands you used in Part 1.
+commands you used in Part 1. Answer each question below in `answers.md`.
 
-- **(a)** Which lines of `shapes.piq` drew the right-most shape? What happened to the `for` loop in the Python: is
-  there a loop in `shapes.py`?
-- **(b)** `wc -l part2/shapes.piq part2/shapes.py` counts the lines of each file. How many lines are there in each?
-  Find the Python for `circle 15`. Roughly how many `move_rel` calls is one circle?
+- **2.1a** Which lines of `shapes.piq` drew the right-most shape? **Answer in `answers.md`.**
+- **2.1b** Find the `for` loop in `shapes.piq`, then look through `shapes.py`. Is there a Python `for` loop that
+  corresponds to it? What did the compiler do instead? **Answer in `answers.md`.**
+- **2.1c** Count the lines of the piq program and of the Python the compiler made from it:
+  ```
+  wc -l part2/shapes.piq part2/shapes.py
+  ```
+  How many lines does each file have? **Answer in `answers.md`.**
+- **2.1d** Find the Python for `circle 15`. Hint: it comes right after the rectangle's code. Look for
+  `move_rel(15.0, 0.0)` (the pen travels out to the circle's edge), then `pen_down()`, then a long run of `move_rel`
+  calls with long decimal numbers. Approximately how many `move_rel(...)` calls draw this one circle? **Answer in
+  `answers.md`.**
 
 ### 2.2 Predict, then change
-Make each change, **predicting first**, and run `piq2png part2/shapes.piq` after each.
+Make each change, predict what will happen, and run `piq2png part2/shapes.piq` after each.
 
-- **(a)** Change the loop to `for i from 1 to 8 {` and its body to `square i * 5`. What will the right-most shape look
-  like now? Is it bigger, smaller, or the same size overall?
-- **(b)** In the `flower` procedure, change the last line, `move up 3 * r`, to `move up 2 * r`. Which shapes will
-  move, and in which direction? Which question from Part 1 is this like? Afterwards, change it back.
+> **Things to notice** (no written answer needed)
+>
+> - **(a)** Change the loop to `for i from 1 to 8 {` and its body to `square i * 5`. Run it and notice what the
+>   right-most shape looks like now. Is it bigger, smaller, or the same size overall? Make sure you can see why.
+> - **(b)** In the `flower` procedure, change the last line, `move up 3 * r`, to `move up 2 * r`. Run it and notice
+>   which shapes move, and in which direction. Confirm for yourself which question from Part 1 this is like.
+>   Afterwards, change it back.
 
 ### 2.3 The same stick person, in piq
 Run `piq2png part2/stick_person.piq`. It draws **exactly the same** stick person as `part1/stick_person.py` (the
-original, without your hat and face). Compare the three versions:
-```
-wc -l part1/stick_person.py part2/stick_person.piq part2/stick_person.py
-```
-(The hand-written Python has lots of comments, so also compare only the lines that do something.)
+original, without your hat and face).
 
-- **(a)** Roughly how many lines does each version need to draw the person? The compiled `part2/stick_person.py` and
-  the hand-written `part1/stick_person.py` draw the same picture. Count the plotter commands in each:
+- **2.3a** Compare the versions. First count the lines of each file:
+  ```
+  wc -l part1/stick_person.py part2/stick_person.piq part2/stick_person.py
+  ```
+  (The hand-written Python has lots of comments, so the plotter commands are a fairer comparison.) The compiled
+  `part2/stick_person.py` and the hand-written `part1/stick_person.py` draw the same picture. Count the plotter
+  commands in each:
   ```
   grep -cE 'pen_up|pen_down|move_rel' part1/stick_person.py part2/stick_person.py
   ```
-  Which one uses more commands? Look inside the compiled file: where do the extra commands come from?
+  Which one uses more plotter commands? Look inside the compiled file: where do the extra commands come from?
+  **Answer in `answers.md`.**
 
-Now **extend the piq drawing**. Save your work as `part2/scene.piq`:
+### 2.4 Extend the drawing
+Now you'll grow the piq stick person into a scene. Work in a copy, `part2/scene.piq`:
 ```
 cp part2/stick_person.piq part2/scene.piq
 ```
-and run `piq2png part2/scene.piq` often.
+and run `piq2png part2/scene.piq` often to preview your work.
 
-1. **Hat and face:** add the same hat and face as in 1.4 (same sizes and positions). Count the lines you added, and
-   compare with your count from 1.4.
-2. **A crowd:** turn the person into a procedure, `define person() { … }`, and use a `for` loop to draw **three
-   people side by side**, 90 mm apart and centred on the paper.
-   - Hint: a procedure is only easy to reuse if it **ends where it started**. `stick_person.piq` starts by moving up
-     to the neck and ends at the neck. What must you add or remove so that `person()` ends where it began?
-3. **Your own addition:** add something else to the scene: a sun, the ground, trees, a house, a dog … It must include:
-   - at least one **procedure with a parameter** that you call **at least twice** with different arguments (for
-     example `tree(30)` and `tree(50)`);
-   - at least one `circle` and one `rectangle`;
-   - at least one arithmetic expression (such as `h / 2 + 12`).
+- **2.4a Finish the person.** Give the person a **face** and a **hat**. They're up to you, though reusing the sizes
+  from 1.4 makes the comparison in Reflection question 1 fairer. Preview it.
+  **Record:** how many lines of piq did you add for the hat and face? **Answer in `answers.md`.**
+- **2.4b Make it a procedure.** Define a procedure with no parameters:
+  ```
+  define person() {
+      ...
+  }
+  ```
+  Move the code that draws **one** person, including your hat and face, into the body of `person()`. Then, below the
+  definition, call it:
+  ```
+  person()
+  ```
+  and preview it: you should see the same single person as before.
 
-   Keep everything inside the safe area (no red in the preview).
+  > **Procedure definitions must appear at the top of a piq program, before the ordinary statements that run the
+  > drawing.** A `define` after a statement is an error.
+
+- **2.4c A crowd.** Use a `for` loop to draw **several people** side by side. Inside the loop: call `person()`, then
+  move some distance to the right, then the loop repeats. Hints:
+  - A procedure is only easy to repeat if it **ends where it started**. `stick_person.piq` starts by moving up to the
+    neck and ends at the neck. What must you add or remove so that `person()` ends where it began?
+  - About 90 mm between people keeps their arms and hats from overlapping.
+  - Move left before the loop, so the group ends up centred. If anything turns red in the preview, it's outside the
+    safe area.
+
+  Preview the group of people.
+- **2.4d Add one thing of your own.** Add at least **one other thing** to the drawing besides the people. That's the
+  only requirement. It can be anything reasonable, for example:
+  - a sun or clouds;
+  - the ground, a tree or a house;
+  - circles or other decoration, or a pattern;
+  - another style of person, or another repeated object;
+  - something completely different.
+
+  You may use another procedure, a loop, variables, arithmetic, shapes or lines, but none of these is required.
+  Experiment! Just keep everything inside the safe area (no red in the preview).
 
 - **Save for Gradescope:** `part2/scene.piq` and `part2/scene.png`.
 
 ---
 
 ## Reflection (5 minutes)
-Answer in 2–4 sentences each.
+**Answer in `answers.md`**, in 2–4 sentences each.
 
-1. For the hat and face, how many lines did Python (1.4) and piq (2.3 step 1) each take? Why was the difference small
+1. For the hat and face, how many lines did Python (1.4) and piq (2.4a) each take? Why was the difference small
    there, but huge for the crowd and for circles? Use numbers from `wc -l`, or from `grep -c move_rel`, to support
    your answer.
 2. Name two things the piq compiler does for you that you had to do by hand in Part 1.
@@ -242,10 +298,11 @@ Upload to Gradescope:
 
 | Question | Submit |
 |---|---|
-| 1.1–1.3 | Your answers, and `part1/shapes_1_2.png` |
+| 1.2–1.3 | Your answers, and `part1/shapes_1_2.png` |
 | 1.4 | Your line count, `part1/dressed.py`, and `part1/dressed.png` |
-| 2.1–2.2 | Your answers |
-| 2.3 | Your answers and line count, `part2/scene.piq`, and `part2/scene.png` |
+| 2.1a–2.1d | Your answers |
+| 2.3a | Your answer |
+| 2.4 | Your line count (2.4a), `part2/scene.piq`, and `part2/scene.png` |
 | Reflection | Your answers |
 
 ---

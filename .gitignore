@@ -3,3 +3,5 @@
 part2/*.py
 # pages made by a markdown viewer
 *.html
+# the handout figure is part of the lab
+!images/*.png

@@ -1,16 +1,11 @@
 # Lab answers: Plotter Python and piq
 
-Keep notes here as you go, then paste each answer into the matching Gradescope question.
+Keep notes here as you go, then paste each answer into the matching Gradescope question. Only the questions marked
+**Answer in `answers.md`** in the lab have a place here; "Things to notice" (1.1 and 2.2) need no written answer.
 
 Name(s):
 
 ## Part 1: the target language
-
-### 1.1 Run it
-- (a) Number of `pen_down()` calls:
-- (a) Number of separate shapes:
-- (a) Why they differ:
-- (b) Why the X needs a `pen_up()` in the middle but the square doesn't:
 
 ### 1.2 One number, everywhere
 - Prediction (before running):
@@ -29,25 +24,21 @@ Name(s):
 ## Part 2: piq
 
 ### 2.1 Run it, and look at what the compiler made
-- (a) The lines that drew the right-most shape, and what happened to the loop in the Python:
-- (b) Lines in `shapes.piq`:          Lines in `shapes.py`:
-- (b) About how many `move_rel` calls one circle takes:
-
-### 2.2 Predict, then change
-- (a) Prediction:
-- (a) What actually happened:
-- (b) Prediction:
-- (b) What actually happened, and which Part 1 question it is like:
+- **2.1a** The lines of `shapes.piq` that drew the right-most shape:
+- **2.1b** Is there a Python `for` loop for the piq `for` loop? What did the compiler do instead?
+- **2.1c** Lines in `shapes.piq`:          Lines in `shapes.py`:
+- **2.1d** About how many `move_rel(...)` calls draw one `circle 15`:
 
 ### 2.3 The same stick person, in piq
-- (a) Lines to draw the person in each version:
-- (a) Plotter commands in the hand-written and in the compiled Python, and where the extra commands come from:
-- Lines I added in piq for the hat and face:
-- What my own addition is, and the procedure with a parameter I wrote:
+- **2.3a** Which Python file uses more plotter commands, and where the extra commands come from:
+
+### 2.4 Extend the drawing
+- **2.4a** Lines of piq I added for the hat and face:
 - Files to upload: `part2/scene.piq`, `part2/scene.png`
 
 ## Reflection
-1. Hat and face in Python vs piq, and why the difference was small there but huge for the crowd and for circles:
+1. Hat and face in Python (1.4) vs piq (2.4a), and why the difference was small there but huge for the crowd and for
+   circles:
 
 2. Two things the piq compiler does for me:
 
