@@ -19,10 +19,10 @@ go; its headings match the Gradescope questions. [What to submit](#what-to-submi
 ---
 
 ## Setup (2 minutes)
-On the course server, copy the lab into your home folder and work there:
+On the course server, clone the lab into your home folder and work there:
 
 ```
-cp -r <LAB FOLDER> ~/piq-lab
+git clone https://github.com/hmc-cs-131-fa-2026/piq-lab.git ~/piq-lab
 cd ~/piq-lab
 ```
 
